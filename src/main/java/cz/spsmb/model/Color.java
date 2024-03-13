@@ -19,10 +19,16 @@ public class Color implements Serializable {
 
     String color;
 
-    @OneToMany(mappedBy = "color")
+    @OneToMany(mappedBy = "color", fetch = FetchType.EAGER)
     List<Car> carList = new ArrayList<>();
 
     public Color() {}
+
+    public Color(long id, String color, List<Car> carList) {
+        this.id = id;
+        this.color = color;
+        this.carList = carList;
+    }
 
     public long getId() {
         return id;

@@ -51,6 +51,6 @@
         <module name="code-with-quarkus.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="19" />
   </component>
 </project>

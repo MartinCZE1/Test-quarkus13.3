@@ -1,5 +1,6 @@
 package cz.spsmb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -18,11 +19,14 @@ public class Type implements Serializable {
     @OneToMany(mappedBy = "type")
     List<Car> car = new ArrayList<>();
 
-    public Type(String type) {
+    public Type(long id, String type, List<Car> car) {
+        this.id = id;
         this.type = type;
+        this.car = car;
     }
 
-    public Type(){}
+    public Type() {
+    }
 
     public long getId() {
         return id;

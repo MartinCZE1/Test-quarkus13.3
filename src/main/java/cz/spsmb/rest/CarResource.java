@@ -7,6 +7,7 @@ import cz.spsmb.dao.TypeRepository;
 import cz.spsmb.dto.CarDTO;
 import cz.spsmb.model.Car;
 import cz.spsmb.model.Color;
+import cz.spsmb.model.Price;
 import cz.spsmb.model.Type;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -66,7 +67,16 @@ public class CarResource {
         if (validateInput(carDTO)) {
             Car car = new Car();
 
+            Optional<Price> priceOptional = priceRepository.listByName(carDTO.getPrice());
+            if (priceOptional.isPresent()) {
+                car.setPrice(priceOptional.get());
+            } else {
+                Price price = new Price();
+                price.setPrice(carDTO.getPrice());
 
+                priceRepository.persist(price);
+                car.setPrice(price);
+            }
 
             Optional<Color> colorOptional = colorRepository.listByName(carDTO.getColor());
             if (colorOptional.isPresent()) {

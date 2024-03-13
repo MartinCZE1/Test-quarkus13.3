@@ -1,6 +1,7 @@
 package cz.spsmb.model;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 
@@ -13,7 +14,8 @@ public class Price implements Serializable {
     long id;
     int price;
 
-    @OneToOne(mappedBy = "price")
+    @OneToOne
+    @JoinColumn(name = "car_id")
     Car car;
 
     public Price(int price) {

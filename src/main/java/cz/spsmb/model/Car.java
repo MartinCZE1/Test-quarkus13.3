@@ -16,8 +16,8 @@ public class Car {
     @JoinColumn(name = "color_id", nullable = false)
     Color color;
 
-    @OneToMany(mappedBy = "id")
-    List<Price> prices;
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
+    Price price;
 
     @ManyToOne
     @JoinColumn(name = "type_id", nullable = false)
@@ -47,12 +47,12 @@ public class Car {
         this.type = type;
     }
 
-    public List<Price> getPrices() {
-        return prices;
+    public Price getPrice() {
+        return price;
     }
 
-    public void setPrices(List<Price> prices) {
-        this.prices = prices;
+    public void setPrice(Price price) {
+        this.price = price;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Car {
         return "Car{" +
                 "id=" + id +
                 ", color=" + color +
-                ", price=" + prices +
+                ", price=" + price +
                 ", type=" + type +
                 '}';
     }
