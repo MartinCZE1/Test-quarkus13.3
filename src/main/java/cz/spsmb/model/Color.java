@@ -3,7 +3,8 @@ package cz.spsmb.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "color")
@@ -22,7 +23,8 @@ public class Color implements Serializable {
     @OneToMany(mappedBy = "color", fetch = FetchType.EAGER)
     List<Car> carList = new ArrayList<>();
 
-    public Color() {}
+    public Color() {
+    }
 
     public Color(long id, String color, List<Car> carList) {
         this.id = id;

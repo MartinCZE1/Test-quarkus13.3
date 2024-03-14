@@ -15,6 +15,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +36,22 @@ public class CarResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response list() {
-        List<Car> jokes = carRepository.listAll();
-        return Response.ok().entity(jokes).build();
+        List<Car> cars = carRepository.listAll();
+        List<CarDTO> carDTOs = new ArrayList<>();
+
+        for (Car car : cars) {
+            CarDTO carDTO = new CarDTO();
+            carDTO.setColor(car.getColor().getColor());
+            carDTO.setType(car.getType().getType());
+            if (car.getPrice() != null) {
+                carDTO.setPrice(car.getPrice().getPrice());
+            } else {
+                carDTO.setPrice("Unknown");
+            }
+            carDTOs.add(carDTO);
+        }
+
+        return Response.ok().entity(carDTOs).build();
     }
 
     @GET
@@ -67,16 +82,17 @@ public class CarResource {
         if (validateInput(carDTO)) {
             Car car = new Car();
 
-            Optional<Price> priceOptional = priceRepository.listByName(carDTO.getPrice());
-            if (priceOptional.isPresent()) {
-                car.setPrice(priceOptional.get());
-            } else {
-                Price price = new Price();
-                price.setPrice(carDTO.getPrice());
 
+            Price price = priceRepository.listByName(carDTO.getPrice());
+            if (price != null) {
+                car.setPrice(price);
+            } else {
+                price = new Price();
+                price.setPrice(carDTO.getPrice());
                 priceRepository.persist(price);
                 car.setPrice(price);
             }
+
 
             Optional<Color> colorOptional = colorRepository.listByName(carDTO.getColor());
             if (colorOptional.isPresent()) {
@@ -106,6 +122,6 @@ public class CarResource {
     }
 
     public static boolean validateInput(CarDTO carDTO) {
-        return !(carDTO.getColor().isEmpty() || carDTO.getType().isEmpty());
+        return !(carDTO.getColor().isEmpty() || carDTO.getPrice().isEmpty() || carDTO.getType().isEmpty());
     }
 }

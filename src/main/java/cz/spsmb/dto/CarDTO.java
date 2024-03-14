@@ -1,13 +1,9 @@
 package cz.spsmb.dto;
 
-import cz.spsmb.model.Price;
-
-import java.util.List;
-
 public class CarDTO {
     String color;
     String type;
-    int price;
+    String price;
 
     public String getColor() {
         return color;
@@ -25,20 +21,16 @@ public class CarDTO {
         this.type = type;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
     @Override
     public String toString() {
-        return "CarDTO{" +
-                "color='" + color + '\'' +
-                ", type='" + type + '\'' +
-                ", price=" + price +
-                '}';
+        return "CarDTO{" + "color='" + color + '\'' + ", type='" + type + '\'' + ", price=" + price + '}';
     }
 }

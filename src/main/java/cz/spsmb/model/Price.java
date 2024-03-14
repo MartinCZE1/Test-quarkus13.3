@@ -12,24 +12,24 @@ public class Price implements Serializable {
     @Column(name = "price_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    int price;
+    String price;
 
     @OneToOne
     @JoinColumn(name = "car_id")
     Car car;
 
-    public Price(int price) {
+    public Price(String price) {
         this.price = price;
     }
 
     public Price() {
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
