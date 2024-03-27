@@ -49,9 +49,9 @@
                 <div class="row">
                     <c:forEach items="#{carView.cars}" var="car">
                         <div class="col-3">
-                            <p><h:outputText value="#{car.color.color}"/></p>
-                            <p><h:outputText value="#{car.price.price}"/></p>
-                            <p><h:outputText value="#{car.type.type}"/></p>
+                            <p><h:outputText value="Color: #{car.color.color}"/></p>
+                            <p><h:outputText value="Price: #{car.price.price}"/></p>
+                            <p><h:outputText value="Type: #{car.type.type}"/></p>
                         </div>
                     </c:forEach>
                 </div>
